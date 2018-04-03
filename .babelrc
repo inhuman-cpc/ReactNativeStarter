@@ -1,3 +1,22 @@
 {
-  "presets": ["react-native"]
+  "presets": [
+    "react-native"
+  ],
+  "plugins": [
+    [
+      "transform-decorators-legacy"
+    ],
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "components": "./src/components",
+        "constants": "./src/constants",
+        "containers": "./src/containers",
+        "images": "./src/images",
+        "stores": "./src/stores",
+        "utils": "./src/utils",
+        "tests": "./__tests__"
+      }
+    }]
+  ]
 }
