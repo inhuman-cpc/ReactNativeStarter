@@ -1,7 +1,7 @@
-import auth from './AuthStore'
-import users from './UserStore'
+import homeStore from './AuthStore'
+import userStore from './UserStore'
 
 export default {
-  auth,
-  users
+  homeStore,
+  userStore
 }
