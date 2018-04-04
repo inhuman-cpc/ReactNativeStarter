@@ -1,40 +1,55 @@
 import React, { Component } from 'react'
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 import { Platform } from 'react-native'
 import {Provider} from 'mobx-react/native'
 import UserScreen from './screens/UserScreen'
 import HomeScreen from './screens/HomeScreen'
+import DetailScreen from './screens/DetailScreen'
+import SettingsScreen from './screens/SettingsScreen'
 import stores from './stores'
 
-const ExampleRoutes = {
-  Home: {
-    name: 'Stack Example',
-    description: 'A card stack',
-    screen: HomeScreen
-  },
-  User: {
-    name: 'Tabs Example',
-    description: 'Tabs following platform conventions',
-    screen: UserScreen
-  }
+const stackOptions = {
+  headerMode: 'none',
+
+  /*
+ * Use modal on iOS because the card mode comes from the right,
+ * which conflicts with the drawer example gesture
+ */
+  mode: Platform.OS === 'ios' ? 'modal' : 'card'
 }
-
-const AppNavigator = StackNavigator(
+const HomeStack = StackNavigator(
   {
-    ...ExampleRoutes,
-    Index: {
-      screen: HomeScreen
-    }
+    Home: {screen: HomeScreen},
+    Detail: {screen: DetailScreen}
+  }, {
+    ...stackOptions,
+    initialRouteName: 'Home'
+  }
+)
+const UserStack = StackNavigator(
+  {
+    User: {screen: UserScreen},
+    Settings: {screen: SettingsScreen}
+  }, {
+    ...stackOptions,
+    initialRouteName: 'User'
+  }
+)
+const AppNavigator = TabNavigator(
+  {
+    Home: {screen: HomeStack},
+    User: {screen: UserStack}
   },
   {
-    initialRouteName: 'Index',
-    headerMode: 'none',
-
-    /*
-   * Use modal on iOS because the card mode comes from the right,
-   * which conflicts with the drawer example gesture
-   */
-    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    initialRouteName: 'Home',
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray'
+    },
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: 'bottom',
+    animationEnabled: false,
+    swipeEnabled: false
   }
 )
 

@@ -1,14 +1,10 @@
 import { observable, action } from 'mobx'
 
 class Store {
-  @observable count = 0;
+  @observable username = 'Berkshire Hathaway'
 
-  @action onPlus () {
-    this.count += 1
-  }
-
-  @action onMinus () {
-    this.count -= 1
+  @action changeUsername (username) {
+    this.username = username
   }
 }
 

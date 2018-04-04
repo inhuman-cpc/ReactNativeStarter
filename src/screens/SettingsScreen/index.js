@@ -6,7 +6,7 @@ import {Container, Header, Body, Content, Icon, Left, Right, Title} from 'native
 
 @inject('userStore')
 @observer
-export default class UserScreen extends Component {
+export default class SettingsScreen extends Component {
   static propTypes = {
     userStore: PropTypes.object,
     navigation: PropTypes.object
@@ -32,9 +32,8 @@ export default class UserScreen extends Component {
         </Header>
 
         <Content>
-          <Text>Hi, {userStore.username}!</Text>
-          <Button onPress={() => userStore.changeUsername('Warren Buffett')} title="Change My Username" />
-          <Button onPress={() => this.props.navigation.navigate('Home')} title="Go Home" />
+          <Text>Hi, {userStore.username}! \nYour profile has been updated.</Text>
+          <Button onPress={() => this.props.navigation.goBack()} title="Go Back" />
         </Content>
       </Container>
     )

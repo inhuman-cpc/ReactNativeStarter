@@ -12,10 +12,10 @@
     "mobx": "^4.1.1",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^5.0.0",
+    "native-base": "^2.4.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.0-alpha.1",
     "react-native": "0.54.4",
-    "react-native-navigation": "^1.1.431",
     "react-navigation": "^1.5.9"
   },
   "devDependencies": {

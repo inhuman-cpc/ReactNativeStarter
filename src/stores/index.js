@@ -1,4 +1,4 @@
-import homeStore from './AuthStore'
+import homeStore from './HomeStore'
 import userStore from './UserStore'
 
 export default {
