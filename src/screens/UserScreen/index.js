@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Text, Button } from 'react-native'
+import { Text, Button as NativeButton } from 'react-native'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react/native'
-import {Container, Header, Body, Content, Icon, Left, Right, Title} from 'native-base'
+import {Container, Header, Body, Content, Title, Left, Right} from 'native-base'
 
 @inject('userStore')
 @observer
@@ -12,29 +12,28 @@ export default class UserScreen extends Component {
     navigation: PropTypes.object
   }
 
+  updateProfile = () => {
+    let { userStore, navigation } = this.props
+    let username = userStore.username === 'Warren Buffett' ? 'Berkshire Hathaway' : 'Warren Buffett'
+    userStore.changeUsername(username)
+    navigation.push('Settings')
+  }
+
   render () {
     const { userStore } = this.props
     return (
       <Container>
         <Header>
-          <Left>
-            <Button transparent>
-              <Icon
-                active
-                name="menu"
-              />
-            </Button>
-          </Left>
+          <Left />
           <Body>
-            <Title>Detail</Title>
+            <Title>User Home</Title>
           </Body>
           <Right />
         </Header>
 
         <Content>
           <Text>Hi, {userStore.username}!</Text>
-          <Button onPress={() => userStore.changeUsername('Warren Buffett')} title="Change My Username" />
-          <Button onPress={() => this.props.navigation.navigate('Home')} title="Go Home" />
+          <NativeButton onPress={this.updateProfile} title="Update Profile" />
         </Content>
       </Container>
     )

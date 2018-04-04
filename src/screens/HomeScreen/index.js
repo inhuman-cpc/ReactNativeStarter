@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Text, Button } from 'react-native'
+import { Text, Button as NativeButton } from 'react-native'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react/native'
-import {Container, Header, Body, Content, Icon, Left, Right, Title, List, ListItem} from 'native-base'
+import {Container, Header, Body, Content, Title, List, ListItem, Left, Right} from 'native-base'
 
 @inject('homeStore')
 @observer
-export default class UserScreen extends Component {
+export default class HomeScreen extends Component {
   static propTypes = {
     homeStore: PropTypes.object,
     navigation: PropTypes.object
@@ -23,14 +23,7 @@ export default class UserScreen extends Component {
     return (
       <Container>
         <Header>
-          <Left>
-            <Button transparent>
-              <Icon
-                active
-                name="menu"
-              />
-            </Button>
-          </Left>
+          <Left />
           <Body>
             <Title>Home</Title>
           </Body>
@@ -39,7 +32,7 @@ export default class UserScreen extends Component {
 
         <Content>
           <Text>Items count: {homeStore.items.length}</Text>
-          <Button onPress={() => homeStore.push()} title="Add One Item" />
+          <NativeButton onPress={() => homeStore.push()} title="Add One Item" />
           <List>
             {
               homeStore.items.map(item => {

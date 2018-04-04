@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Text, Button } from 'react-native'
+import { Text, Button as NativeButton } from 'react-native'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react/native'
-import {Container, Header, Body, Content, Icon, Left, Right, Title} from 'native-base'
+import {Container, Header, Body, Content, Title, Left, Right, Icon, Button} from 'native-base'
 
 @inject('homeStore')
 @observer
-export default class UserScreen extends Component {
+export default class DetailScreen extends Component {
   static propTypes = {
     homeStore: PropTypes.object,
     navigation: PropTypes.object
@@ -24,10 +24,10 @@ export default class UserScreen extends Component {
       <Container>
         <Header>
           <Left>
-            <Button transparent>
+            <Button transparent onPress={() => navigation.goBack()}>
               <Icon
                 active
-                name="menu"
+                name="arrow-back"
               />
             </Button>
           </Left>
@@ -39,7 +39,6 @@ export default class UserScreen extends Component {
 
         <Content>
           <Text>Item id: {homeStore.selected}</Text>
-          <Button onPress={() => navigation.goBack()} title="Go Back" />
         </Content>
       </Container>
     )
