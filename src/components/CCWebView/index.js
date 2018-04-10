@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 import { WebView, Alert } from 'react-native'
+import URL from 'url-parse'
 import handlers from './handlers'
 
-export default class SettingsScreen extends Component {
+const WHITE_LIST = [
+  'localhost'
+]
+
+export default class CCWebView extends Component {
   state = {
-    url: ''
+    hostname: ''
   }
 
   onWebViewMessage = event => {
+    if (WHITE_LIST.indexOf(this.state.hostname) === -1) {
+      Alert.alert('Host not allowed.')
+      return
+    }
+
     console.log('Message received from webview')
 
     let requestData
@@ -24,7 +34,7 @@ export default class SettingsScreen extends Component {
       handlers[handler](params, (responseData) => {
         if (callbackId) {
           // success, callbackId, data
-          this.myWebView.postMessage(JSON.stringify({
+          this.webview.postMessage(JSON.stringify({
             callbackId,
             ...responseData
           }))
@@ -35,11 +45,10 @@ export default class SettingsScreen extends Component {
     }
   }
 
-  onNavChange = webviewState => {
+  onLoadEnd = e => {
     this.setState({
-      url: webviewState.url
+      hostname: new URL(e.nativeEvent.url).hostname
     })
-    Alert.alert(webviewState.url)
   }
 
   render () {
@@ -47,7 +56,7 @@ export default class SettingsScreen extends Component {
       <WebView
         {...this.props}
         onMessage={this.onWebViewMessage}
-        onNavigationStateChange={this.onNavChange}
+        onLoadEnd={this.onLoadEnd}
         ref={webview => {
           this.webview = webview
         }}
